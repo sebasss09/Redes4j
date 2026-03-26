@@ -1,0 +1,262 @@
+================================================================
+        REDES INFORMÁTICAS — GUÍA DE CONTENIDO
+================================================================
+
+
+----------------------------------------------------------------
+1. ORIGEN DE LA RED
+----------------------------------------------------------------
+Las redes informáticas tienen su origen en los años 60 con
+ARPANET (Advanced Research Projects Agency Network), proyecto
+financiado por el Departamento de Defensa de EE.UU. en 1969.
+Su objetivo era mantener comunicaciones descentralizadas que
+sobrevivieran fallos en nodos individuales. Con el tiempo
+evolucionó hacia Internet, la red global que conocemos hoy.
+
+
+----------------------------------------------------------------
+2. DEFINICIÓN DE RED
+----------------------------------------------------------------
+Una red informática es un conjunto de dispositivos (computadoras,
+servidores, impresoras, teléfonos, etc.) interconectados entre sí
+mediante medios físicos o inalámbricos, con el fin de compartir
+datos, recursos y servicios. La comunicación entre dispositivos
+sigue reglas llamadas protocolos (como TCP/IP).
+
+
+----------------------------------------------------------------
+3. TIPOS DE REDES
+----------------------------------------------------------------
+
+PAN — Personal Area Network (Red de Área Personal)
+  Cubre un radio de aproximadamente 10 metros.
+  Conecta dispositivos personales: teléfono, audífonos, reloj.
+  Ejemplo: Bluetooth entre celular y audífonos inalámbricos.
+
+LAN — Local Area Network (Red de Área Local)
+  Cubre un edificio, oficina, escuela o hogar.
+  Alta velocidad y bajo costo de mantenimiento.
+  Ejemplo: red WiFi o cableada de una empresa o universidad.
+
+MAN — Metropolitan Area Network (Red de Área Metropolitana)
+  Cubre una ciudad o zona urbana completa.
+  Conecta múltiples LANs dentro de una metrópoli.
+  Ejemplo: red de cable de una ciudad, red universitaria multicampus.
+
+WAN — Wide Area Network (Red de Área Amplia)
+  Cubre países, continentes o el mundo entero.
+  Conecta múltiples MANs y LANs a gran distancia.
+  Ejemplo: Internet es la WAN más grande que existe.
+
+
+----------------------------------------------------------------
+4. MODELOS DE RED (CLIENTE-SERVIDOR / CLIENTE-CLIENTE)
+----------------------------------------------------------------
+
+Cliente - Servidor
+  Existe un servidor centralizado que provee recursos y servicios.
+  Los clientes solicitan y consumen esos recursos.
+  Ventajas: seguridad centralizada, fácil administración.
+  Ejemplo: navegador web (cliente) que accede a Google (servidor).
+
+Cliente - Cliente (Peer to Peer / P2P)
+  Todos los dispositivos actúan como cliente y servidor a la vez.
+  No existe un servidor central.
+  Ventajas: bajo costo, sin punto único de fallo.
+  Ejemplo: BitTorrent, compartición de archivos entre pares.
+
+
+----------------------------------------------------------------
+5. TOPOLOGÍA DE RED
+----------------------------------------------------------------
+La topología define la disposición física o lógica de los nodos
+y enlaces dentro de una red.
+
+Bus
+  Todos los nodos comparten un único cable central (backbone).
+  Simple y económica pero si el cable falla, toda la red cae.
+  Usada en redes antiguas 10BASE2 con cable coaxial.
+
+P2P (Punto a Punto)
+  Conexión directa y exclusiva entre dos dispositivos.
+  La más sencilla de implementar.
+  Ejemplo: enlace dedicado entre dos edificios.
+
+Estrella
+  Todos los nodos se conectan a un dispositivo central (switch/hub).
+  Fácil mantenimiento: si un nodo falla, los demás siguen funcionando.
+  Si el dispositivo central falla, toda la red cae.
+  Es la topología más usada en redes LAN modernas.
+
+Anillo
+  Los nodos se conectan en un bucle cerrado, uno tras otro.
+  Los datos viajan en una sola dirección.
+  Si un nodo falla puede interrumpir toda la red.
+  Ejemplo: Token Ring (IEEE 802.5).
+
+Malla
+  Cada nodo se conecta con varios o todos los demás nodos.
+  Alta redundancia: si un enlace falla, los datos buscan otra ruta.
+  Costosa de implementar pero muy resiliente.
+  Usada en redes militares y de misión crítica.
+
+Árbol
+  Estructura jerárquica: un nodo raíz conecta ramas de nodos.
+  Combina características de bus y estrella.
+  Fácil de expandir pero depende del nodo raíz.
+  Usada en redes de campus universitarios.
+
+Mixta (Híbrida)
+  Combina dos o más topologías según las necesidades.
+  Es la más usada en entornos empresariales reales.
+  Ejemplo: estrella en cada piso conectadas por backbone de bus.
+
+
+----------------------------------------------------------------
+6. MEDIOS DE CONEXIÓN
+----------------------------------------------------------------
+
+>> GUIADOS (Alámbricos)
+Los datos viajan por un medio físico concreto.
+
+  Coaxial
+    Cable con conductor central de cobre rodeado de malla metálica.
+    Usado en televisión por cable y redes antiguas.
+    Menos común en redes modernas.
+
+  UTP — Unshielded Twisted Pair (Par Trenzado sin Blindaje)
+    El cable de red más común (Cat5e, Cat6, Cat6A, Cat8).
+    Velocidades desde 100 Mbps hasta 40 Gbps según categoría.
+    Económico y fácil de instalar.
+
+  STP — Shielded Twisted Pair (Par Trenzado Blindado)
+    Similar al UTP pero con blindaje adicional contra interferencias.
+    Usado en entornos industriales o con alta interferencia eléctrica.
+
+  Fibra Óptica
+    Transmite datos como pulsos de luz a través de vidrio o plástico.
+    Velocidades de hasta 100 Gbps o más.
+    Inmune a interferencias electromagnéticas.
+    Dos tipos: monomodo (larga distancia) y multimodo (corta distancia).
+
+>> NO GUIADOS (Inalámbricos)
+Los datos viajan por el aire mediante ondas electromagnéticas.
+
+  Infrarrojo
+    Comunicación de muy corto alcance y línea de vista directa.
+    Ejemplo: controles remotos de televisión.
+
+  WiFi (IEEE 802.11)
+    Estándar más extendido para redes inalámbricas locales.
+    WiFi 6 (802.11ax) alcanza hasta 9.6 Gbps teóricos.
+    Frecuencias: 2.4 GHz y 5 GHz (WiFi 6E agrega 6 GHz).
+
+  Satélites
+    Cobertura global incluyendo zonas remotas.
+    Mayor latencia comparada con medios terrestres.
+    Ejemplo: Starlink (SpaceX), Viasat, HughesNet.
+
+  Microondas
+    Usadas en enlaces punto a punto de larga distancia.
+    Requieren antenas con línea de vista entre torres.
+    Frecuencias entre 1 GHz y 300 GHz.
+
+  Bluetooth
+    Red de área personal (PAN) de corto alcance (~10-100 m).
+    Bluetooth 5.3 alcanza hasta 2 Mbps a 100 metros.
+    Bajo consumo energético.
+
+
+----------------------------------------------------------------
+7. DISPOSITIVOS DE INTERCONEXIÓN
+----------------------------------------------------------------
+
+Hub
+  Concentrador que retransmite la señal a TODOS los puertos.
+  No filtra tráfico: genera colisiones y es ineficiente.
+  Opera en Capa 1 (Física) del modelo OSI.
+  Prácticamente obsoleto, reemplazado por switches.
+
+Switch
+  Conmutador inteligente que envía tramas SOLO al puerto destino.
+  Usa tabla de direcciones MAC para tomar decisiones.
+  Opera en Capa 2 (Enlace de Datos) del modelo OSI.
+  Es el dispositivo central de las redes LAN modernas.
+
+Router
+  Enruta paquetes entre diferentes redes usando direcciones IP.
+  Determina la mejor ruta hacia el destino.
+  Opera en Capa 3 (Red) del modelo OSI.
+  Ejemplo: el router de tu casa conecta la LAN a Internet.
+
+Bridge (Puente)
+  Conecta dos segmentos de red del mismo tipo.
+  Filtra tráfico usando direcciones MAC, reduciendo colisiones.
+  Opera en Capa 2 (Enlace de Datos) del modelo OSI.
+  Funcionalidad hoy integrada en los switches modernos.
+
+Repetidores
+  Amplifican y regeneran la señal para extender el alcance.
+  Combaten la atenuación de la señal en cables largos.
+  Opera en Capa 1 (Física) del modelo OSI.
+  Ejemplo: repetidor WiFi para extender cobertura en el hogar.
+
+Transceptores
+  Dispositivos que transmiten y reciben señales simultáneamente.
+  Convierten entre tipos de señal (eléctrica ↔ óptica).
+  Usados en módulos SFP de switches y routers de fibra óptica.
+  Ejemplo: módulo SFP+ para conexiones de 10 Gbps en fibra.
+
+
+----------------------------------------------------------------
+8. MODELO OSI — 7 CAPAS
+----------------------------------------------------------------
+El modelo OSI (Open Systems Interconnection), publicado por la
+ISO en 1984 (ISO/IEC 7498-1), es el marco de referencia estándar
+que define cómo los datos viajan entre dispositivos en una red,
+dividiendo el proceso en 7 capas independientes.
+
+Mnemónico (de arriba hacia abajo):
+"All People Seem To Need Data Processing"
+
+  Capa 7 — Aplicación
+    Interfaz directa con el usuario final.
+    Gestiona protocolos: HTTP, HTTPS, FTP, SMTP, DNS, POP3.
+    Ejemplo: cuando abres un navegador y visitas una web.
+
+  Capa 6 — Presentación
+    Traduce, comprime y cifra/descifra los datos.
+    Gestiona formatos: JPEG, MP4, ASCII, UTF-8.
+    Gestiona cifrado TLS/SSL para conexiones seguras (HTTPS).
+
+  Capa 5 — Sesión
+    Establece, mantiene y cierra sesiones de comunicación.
+    Controla el diálogo entre dos dispositivos.
+    Protocolos: NetBIOS, RPC, PPTP.
+
+  Capa 4 — Transporte
+    Garantiza la transferencia confiable de extremo a extremo.
+    Segmenta datos y controla el flujo y errores.
+    TCP: confiable, con acuse de recibo (web, correo).
+    UDP: rápido, sin garantía (streaming, videollamadas, juegos).
+
+  Capa 3 — Red
+    Determina la mejor ruta para enviar paquetes entre redes.
+    Usa direcciones IP (IPv4 e IPv6).
+    Dispositivo: Router. Protocolos: IP, ICMP, OSPF, BGP.
+
+  Capa 2 — Enlace de Datos
+    Transmite tramas entre nodos en la misma red local.
+    Usa direcciones MAC (físicas) del hardware.
+    Detecta y corrige errores de transmisión.
+    Dispositivos: Switch, Bridge. Protocolo: Ethernet, WiFi.
+
+  Capa 1 — Física
+    Transmisión de bits crudos (0 y 1) por el medio físico.
+    Define voltajes, frecuencias, conectores y cables.
+    Dispositivos: Hub, Repetidor, Cables, Fibra óptica, WiFi.
+
+================================================================
+Fuentes: ISO/IEC 7498-1, IEEE 802 Standards,
+         Cloudflare Learning, AWS Networking, IBM Documentation
+================================================================

@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redes de Computadoras — Guía Completa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0b0f14;
+            --surface: #131a24;
+            --surface2: #1a2535;
+            --accent: #3b82f6;
+            --accent2: #f97316;
+            --accent3: #22c55e;
+            --accent4: #a855f7;
+            --text: #e8ecf1;
+            --muted: #8899ab;
+            --border: rgba(59, 130, 246, 0.12);
+            --glow: 0 0 25px rgba(59, 130, 246, 0.15);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            height: 56px;
+            background: rgba(11, 15, 20, 0.88);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-logo {
+            font-weight: 800;
+            font-size: 0.85rem;
+            color: var(--accent);
+            letter-spacing: 0.05em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.25rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.72rem;
+            color: var(--muted);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 500;
+            transition: color .2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 7rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 600px 400px at 50% 40%, rgba(59, 130, 246, 0.08), transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            padding: 0.35em 1.2em;
+            border-radius: 100px;
+            margin-bottom: 1.5rem;
+            animation: fadeUp .5s ease both;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5.5vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            animation: fadeUp .5s .08s ease both;
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+        }
+
+        .hero p {
+            max-width: 520px;
+            color: var(--muted);
+            margin-top: 1rem;
+            font-size: 0.95rem;
+            animation: fadeUp .5s .16s ease both;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* SECTIONS */
+        section {
+            position: relative;
+            padding: 4rem 2rem;
+            max-width: 1060px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--accent2);
+            margin-bottom: .6rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.4rem, 3.5vw, 2rem);
+            font-weight: 800;
+            margin-bottom: .6rem;
+        }
+
+        .section-desc {
+            color: var(--muted);
+            max-width: 620px;
+            margin-bottom: 2.5rem;
+            font-size: 0.9rem;
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+            margin: 0 2rem;
+        }
+
+        /* CARDS */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: transform .3s, box-shadow .3s, border-color .3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            opacity: 0;
+            transition: opacity .3s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--glow);
+            border-color: rgba(59, 130, 246, 0.25);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            font-size: 1.6rem;
+            margin-bottom: .6rem;
+        }
+
+        .card h3 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: .4rem;
+        }
+
+        .card p {
+            font-size: 0.82rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .card img,
+        .net-type-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-top: .75rem;
+            border: 1px solid var(--border);
+        }
+
+        .topo-card img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-top: .5rem;
+            border: 1px solid var(--border);
+        }
+
+        .medios-box img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-top: .75rem;
+            border: 1px solid var(--border);
+        }
+
+        .device-card img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-top: .5rem;
+            border: 1px solid var(--border);
+        }
+
+        .modelo-card img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-top: .75rem;
+            border: 1px solid var(--border);
+        }
+
+        .osi-img {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .osi-img img {
+            width: 100%;
+            max-width: 700px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        /* CAROUSEL */
+        .carousel {
+            position: relative;
+            margin-top: .75rem;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform .4s ease;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            position: relative;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+            border: none;
+            border-radius: 0;
+            margin: 0;
+        }
+
+        .carousel-slide .slide-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
+            padding: .5rem .75rem .4rem;
+            font-size: .72rem;
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: .03em;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            color: #fff;
+            font-size: .85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background .2s;
+            z-index: 2;
+        }
+
+        .carousel-btn:hover {
+            background: rgba(59, 130, 246, 0.6);
+        }
+
+        .carousel-btn.prev {
+            left: 6px;
+        }
+
+        .carousel-btn.next {
+            right: 6px;
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            padding: 6px 0;
+            background: var(--surface);
+        }
+
+        .carousel-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--muted);
+            opacity: .35;
+            border: none;
+            cursor: pointer;
+            transition: opacity .2s, background .2s;
+        }
+
+        .carousel-dot.active {
+            opacity: 1;
+            background: var(--accent);
+        }
+
+        /* NET TYPES */
+        .net-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+
+        .net-type-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.25rem;
+            text-align: center;
+            transition: all .3s;
+            cursor: default;
+        }
+
+        .net-type-card:hover {
+            border-color: var(--accent);
+            background: var(--surface2);
+        }
+
+        .net-type-card .abbr {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--accent);
+        }
+
+        .net-type-card .name {
+            font-size: 0.78rem;
+            color: var(--muted);
+            margin-top: .2rem;
+            font-weight: 500;
+        }
+
+        .net-type-card .desc {
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-top: .5rem;
+            line-height: 1.5;
+        }
+
+        /* MODELOS */
+        .modelos-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+
+        .modelo-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all .3s;
+        }
+
+        .modelo-card:hover {
+            border-color: var(--accent);
+            box-shadow: var(--glow);
+        }
+
+        .modelo-card .icon {
+            font-size: 2.2rem;
+            margin-bottom: .75rem;
+        }
+
+        .modelo-card h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: .4rem;
+        }
+
+        .modelo-card p {
+            font-size: 0.82rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        /* TOPO */
+        .topo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+            gap: 1rem;
+        }
+
+        .topo-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            transition: all .25s;
+        }
+
+        .topo-card:hover {
+            border-color: var(--accent3);
+            transform: scale(1.03);
+        }
+
+        .topo-card h4 {
+            font-size: .85rem;
+            font-weight: 700;
+            margin-bottom: .3rem;
+        }
+
+        .topo-card p {
+            font-size: 0.72rem;
+            color: var(--muted);
+            line-height: 1.45;
+        }
+
+        .topo-card .topo-icon {
+            font-size: 2rem;
+            margin-bottom: .4rem;
+        }
+
+        /* MEDIOS */
+        .medios-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .medios-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .medios-box h3 {
+            font-size: .95rem;
+            font-weight: 700;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            margin-bottom: .75rem;
+        }
+
+        .medios-box .sub-desc {
+            font-size: .82rem;
+            color: var(--muted);
+            margin-bottom: .75rem;
+            line-height: 1.5;
+        }
+
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .4rem;
+        }
+
+        .tag {
+            background: rgba(59, 130, 246, 0.07);
+            border: 1px solid rgba(59, 130, 246, 0.18);
+            color: var(--accent);
+            font-size: .72rem;
+            padding: .25em .7em;
+            border-radius: 100px;
+            font-weight: 500;
+        }
+
+        .tag.orange {
+            background: rgba(249, 115, 22, 0.07);
+            border-color: rgba(249, 115, 22, 0.18);
+            color: var(--accent2);
+        }
+
+        .medios-detail {
+            margin-top: .75rem;
+            font-size: .78rem;
+            color: var(--muted);
+            line-height: 1.65;
+        }
+
+        .medios-detail strong {
+            color: var(--text);
+        }
+
+        /* DEVICES */
+        .device-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .device-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.25rem;
+            display: flex;
+            gap: .75rem;
+            align-items: flex-start;
+            transition: all .25s;
+        }
+
+        .device-card:hover {
+            border-color: var(--accent2);
+            transform: translateX(3px);
+        }
+
+        .device-icon {
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+            background: rgba(249, 115, 22, 0.08);
+            border: 1px solid rgba(249, 115, 22, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .device-card h4 {
+            font-size: .88rem;
+            font-weight: 700;
+            margin-bottom: .2rem;
+        }
+
+        .device-card p {
+            font-size: .78rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        /* OSI */
+        .osi-stack {
+            display: flex;
+            flex-direction: column;
+            gap: .4rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .osi-layer {
+            display: grid;
+            grid-template-columns: 50px 1fr auto;
+            align-items: center;
+            gap: .75rem;
+            padding: .9rem 1rem;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            transition: all .25s;
+            cursor: default;
+        }
+
+        .osi-layer:hover {
+            transform: scaleX(1.01);
+            box-shadow: var(--glow);
+        }
+
+        .osi-num {
+            font-size: 1.3rem;
+            font-weight: 800;
+            text-align: center;
+        }
+
+        .osi-info h4 {
+            font-size: .88rem;
+            font-weight: 700;
+        }
+
+        .osi-info p {
+            font-size: .74rem;
+            color: var(--muted);
+            margin-top: .15rem;
+            line-height: 1.4;
+        }
+
+        .osi-proto {
+            font-size: .65rem;
+            color: var(--muted);
+            text-align: right;
+            white-space: nowrap;
+            font-weight: 500;
+        }
+
+        .l7 {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(59, 130, 246, 0.03));
+        }
+
+        .l6 {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.08), rgba(6, 182, 212, 0.02));
+        }
+
+        .l5 {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.08), rgba(34, 197, 94, 0.02));
+        }
+
+        .l4 {
+            background: linear-gradient(135deg, rgba(234, 179, 8, 0.08), rgba(234, 179, 8, 0.02));
+        }
+
+        .l3 {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.08), rgba(249, 115, 22, 0.02));
+        }
+
+        .l2 {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.08), rgba(168, 85, 247, 0.02));
+        }
+
+        .l1 {
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.08), rgba(236, 72, 153, 0.02));
+        }
+
+        .tip-box {
+            margin-top: 1.5rem;
+            padding: 1rem 1.25rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: .82rem;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .tip-box strong {
+            color: var(--accent);
+        }
+
+        .tip-box em {
+            color: var(--text);
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            font-size: .7rem;
+            color: var(--muted);
+        }
+
+        footer span {
+            color: var(--accent);
+        }
+
+        /* SCROLLBAR */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 3px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 640px) {
+            .nav-links {
+                display: none;
+            }
+
+            .modelos-grid,
+            .medios-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <div class="nav-logo">📡 Redes Info</div>
+        <ul class="nav-links">
+            <li><a href="#origen">Origen</a></li>
+            <li><a href="#tipos">Tipos</a></li>
+            <li><a href="#modelos">Modelos</a></li>
+            <li><a href="#topologia">Topología</a></li>
+            <li><a href="#medios">Medios</a></li>
+            <li><a href="#dispositivos">Dispositivos</a></li>
+            <li><a href="#osi">OSI</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="hero-badge">Guía Completa de Redes</div>
+        <h1>Redes de <span>Computadoras</span></h1>
+        <p>Desde el origen de ARPANET hasta el Modelo OSI. Topologías, medios de conexión, dispositivos y todo lo que
+            necesitas saber sobre redes informáticas.</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- 1. ORIGEN Y DEFINICIÓN -->
+    <section id="origen">
+        <div class="section-label">01 — Fundamentos</div>
+        <h2 class="section-title">Origen y Definición de Red</h2>
+        <p class="section-desc">Las redes informáticas nacen de la necesidad de compartir información y recursos entre
+            sistemas. Han transformado radicalmente la comunicación mundial.</p>
+
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">🕰️</div>
+                <h3>Origen de la Red</h3>
+                <p>Las redes tienen su origen en los años 60 con <strong>ARPANET</strong> (Advanced Research Projects
+                    Agency Network), proyecto financiado por el Departamento de Defensa de EE.UU. en 1969. Su objetivo
+                    era mantener comunicaciones descentralizadas que sobrevivieran fallos en nodos individuales. Con el
+                    tiempo evolucionó hacia la Internet global que conocemos hoy.</p>
+                <img src="imagenes/origen.png" alt="Origen de la Red">
+            </div>
+            <div class="card">
+                <div class="card-icon">🌐</div>
+                <h3>Definición de Red</h3>
+                <p>Una red informática es un conjunto de dispositivos (computadoras, servidores, impresoras, teléfonos)
+                    interconectados mediante medios físicos o inalámbricos, con el fin de compartir datos, recursos y
+                    servicios. La comunicación sigue reglas llamadas <strong>protocolos</strong> (como TCP/IP).</p>
+                <img src="imagenes/defi.png" alt="Definición de Red">
+            </div>
+            <div class="card">
+                <div class="card-icon">🔗</div>
+                <h3>Comunicación de Datos</h3>
+                <p>La comunicación en red implica la transmisión de datos entre un emisor y un receptor a través de un
+                    medio físico o inalámbrico, siguiendo reglas o protocolos estandarizados que garantizan que la
+                    información llegue íntegra y en orden correcto.</p>
+                <img src="imagenes/inter.jfif" alt="Comunicación de datos">
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- 2. TIPOS DE REDES -->
+    <section id="tipos">
+        <div class="section-label">02 — Clasificación</div>
+        <h2 class="section-title">Tipos de Redes</h2>
+        <p class="section-desc">Las redes se clasifican según su extensión geográfica. Desde la red personal en tu
+            bolsillo hasta las redes que conectan continentes enteros.</p>
+
+        <div class="net-types">
+            <div class="net-type-card">
+                <div class="abbr">PAN</div>
+                <div class="name">Personal Area Network</div>
+                <div class="desc">Red de área personal. Cubre un radio de ~10 metros. Conecta dispositivos personales:
+                    teléfono, audífonos, reloj. Ejemplo: Bluetooth entre celular y audífonos inalámbricos.</div>
+                <img src="imagenes/blue.png" alt="Bluetooth PAN">
+            </div>
+            <div class="net-type-card">
+                <div class="abbr">LAN</div>
+                <div class="name">Local Area Network</div>
+                <div class="desc">Red de área local. Cubre un edificio, oficina, escuela u hogar. Alta velocidad y bajo
+                    costo. Ejemplo: red WiFi o cableada de una empresa o universidad.</div>
+                <img src="imagenes/lan.jfif" alt="Red LAN">
+            </div>
+            <div class="net-type-card">
+                <div class="abbr">MAN</div>
+                <div class="name">Metropolitan Area Network</div>
+                <div class="desc">Red de área metropolitana. Cubre una ciudad o zona urbana completa. Conecta múltiples
+                    LANs dentro de una metrópoli. Ejemplo: red de cable de una ciudad.</div>
+                <img src="imagenes/man.png" alt="Red MAN">
+            </div>
+            <div class="net-type-card">
+                <div class="abbr">WAN</div>
+                <div class="name">Wide Area Network</div>
+                <div class="desc">Red de área amplia. Cubre países, continentes o el mundo entero. Conecta múltiples
+                    MANs y LANs a gran distancia. Internet es la WAN más grande que existe.</div>
+                <img src="imagenes/wan.png" alt="Red WAN">
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- 3. MODELOS DE RED -->
+    <section id="modelos">
+        <div class="section-label">03 — Arquitectura</div>
+        <h2 class="section-title">Modelos de Red</h2>
+        <p class="section-desc">La forma en que los dispositivos se organizan y se comunican define el modelo de red.
+            Los dos más comunes son Cliente-Servidor y Peer to Peer (P2P).</p>
+
+        <div class="modelos-grid">
+            <div class="modelo-card">
+                <div class="icon">🖥️→💻</div>
+                <h3>Cliente — Servidor</h3>
+                <p>Existe un servidor centralizado que provee recursos y servicios. Los clientes los solicitan y
+                    consumen. <strong>Ventajas:</strong> seguridad centralizada, fácil administración.
+                    <strong>Ejemplo:</strong> navegador web (cliente) que accede a Google (servidor).
+                </p>
+            </div>
+            <div class="modelo-card">
+                <div class="icon">💻↔️💻</div>
+                <h3>Cliente — Cliente (P2P)</h3>
+                <p>Todos los dispositivos actúan como cliente y servidor a la vez. No existe un servidor central.
+                    <strong>Ventajas:</strong> bajo costo, sin punto único de fallo. <strong>Ejemplo:</strong>
+                    BitTorrent, compartición de archivos entre pares.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- 4. TOPOLOGÍA -->
+    <section id="topologia">
+        <div class="section-label">04 — Estructura</div>
+        <h2 class="section-title">Topología de Red</h2>
+        <p class="section-desc">La topología define la disposición física o lógica de los nodos y enlaces dentro de una
+            red. Cada una tiene ventajas y desventajas según el caso de uso.</p>
+
+        <div class="topo-grid">
+            <div class="topo-card">
+                <div class="topo-icon">🔵—🔵—🔵</div>
+                <h4>Bus</h4>
+                <p>Todos los nodos comparten un único cable central (backbone). Simple y económica pero si el cable
+                    falla, toda la red cae. Usada en redes antiguas 10BASE2 con coaxial.</p>
+                <img src="imagenes/bus.jfif" alt="Topología Bus">
+            </div>
+            <div class="topo-card">
+                <div class="topo-icon">🔵⟷🔵</div>
+                <h4>Punto a Punto</h4>
+                <p>Conexión directa y exclusiva entre dos dispositivos. La más sencilla de implementar. Ejemplo: enlace
+                    dedicado entre dos edificios.</p>
+                <img src="imagenes/punto.png" alt="Topología Punto a Punto">
+            </div>
+            <div class="topo-card">
+                <div class="topo-icon">⭐</div>
+                <h4>Estrella</h4>
+                <p>Todos los nodos conectan a un dispositivo central (switch/hub). Fácil mantenimiento. Si un nodo
+                    falla, los demás siguen. La más usada en LANs modernas.</p>
+                <img src="imagenes/estrella.png" alt="Topología Estrella">
+            </div>
+            <div class="topo-card">
+                <div class="topo-icon">🔄</div>
+                <h4>Anillo</h4>
+                <p>Los nodos se conectan en bucle cerrado, uno tras otro. Los datos viajan en una sola dirección. Si un
+                    nodo falla puede interrumpir toda la red. Ej: Token Ring (IEEE 802.5).</p>
+                <img src="imagenes/anillo.png" alt="Topología Anillo">
+            </div>
+            <div class="topo-card">
+                <div class="topo-icon">🕸️</div>
+                <h4>Malla</h4>
+                <p>Cada nodo se conecta con varios o todos los demás. Alta redundancia: si un enlace falla, los datos
+                    buscan otra ruta. Costosa pero muy resiliente. Usada en redes militares.</p>
+                <img src="imagenes/malla.png" alt="Topología Malla">
+            </div>
+            <div class="topo-card">
+                <div class="topo-icon">🌲</div>
+                <h4>Árbol</h4>
+                <p>Estructura jerárquica: un nodo raíz conecta ramas de nodos. Combina bus y estrella. Fácil de expandir
+                    pero depende del nodo raíz. Usada en campus universitarios.</p>
+                <img src="imagenes/arbol.png" alt="Topología Árbol">
+            </div>
+            <div class="topo-card">
+                <div class="topo-icon">🔷🔶</div>
+                <h4>Mixta (Híbrida)</h4>
+                <p>Combina dos o más topologías según las necesidades. Es la más usada en entornos empresariales reales.
+                    Ej: estrella en cada piso conectadas por backbone de bus.</p>
+                <img src="imagenes/mixta.png" alt="Topología Mixta">
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- 5. MEDIOS DE CONEXIÓN -->
+    <section id="medios">
+        <div class="section-label">05 — Transmisión</div>
+        <h2 class="section-title">Medios de Conexión</h2>
+        <p class="section-desc">Los medios de transmisión son los canales físicos o inalámbricos por los que viajan los
+            datos entre dispositivos. Se dividen en guiados y no guiados.</p>
+
+        <div class="medios-section">
+            <div class="medios-box">
+                <h3>🔌 Guiados (Alámbricos)</h3>
+                <div class="sub-desc">Los datos viajan por un medio físico concreto. Ofrecen mayor velocidad, seguridad
+                    y menor interferencia.</div>
+                <div class="tag-list">
+                    <span class="tag">Coaxial</span>
+                    <span class="tag">UTP (Par Trenzado)</span>
+                    <span class="tag">STP (Blindado)</span>
+                    <span class="tag">Fibra Óptica</span>
+                </div>
+                <div class="medios-detail">
+                    <strong>Coaxial:</strong> conductor central de cobre rodeado de malla metálica. Usado en TV por
+                    cable y redes antiguas.<br>
+                    <strong>UTP:</strong> el cable más común (Cat5e, Cat6, Cat6A, Cat8). Velocidades de 100 Mbps a 40
+                    Gbps. Económico y fácil de instalar.<br>
+                    <strong>STP:</strong> similar al UTP pero con blindaje contra interferencias. Usado en entornos
+                    industriales.<br>
+                    <strong>Fibra Óptica:</strong> transmite datos como pulsos de luz. Hasta 100+ Gbps. Inmune a
+                    interferencias electromagnéticas. Monomodo (larga distancia) y multimodo (corta distancia).
+                </div>
+                <div class="carousel" id="carousel-guiados">
+                    <div class="carousel-track">
+                        <div class="carousel-slide">
+                            <img src="imagenes/coaxial.jfif" alt="Cable Coaxial">
+                            <div class="slide-label">Cable Coaxial</div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="imagenes/utp.jfif" alt="Cable UTP">
+                            <div class="slide-label">UTP — Par Trenzado</div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="imagenes/stp.jfif" alt="Cable STP">
+                            <div class="slide-label">STP — Par Trenzado Blindado</div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="imagenes/fibraop.jfif" alt="Fibra Óptica">
+                            <div class="slide-label">Fibra Óptica</div>
+                        </div>
+                    </div>
+                    <button class="carousel-btn prev" onclick="moveCarousel('carousel-guiados',-1)">‹</button>
+                    <button class="carousel-btn next" onclick="moveCarousel('carousel-guiados',1)">›</button>
+                    <div class="carousel-dots">
+                        <button class="carousel-dot active" onclick="goToSlide('carousel-guiados',0)"></button>
+                        <button class="carousel-dot" onclick="goToSlide('carousel-guiados',1)"></button>
+                        <button class="carousel-dot" onclick="goToSlide('carousel-guiados',2)"></button>
+                        <button class="carousel-dot" onclick="goToSlide('carousel-guiados',3)"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="medios-box">
+                <h3 style="color: var(--accent2)">📡 No Guiados (Inalámbricos)</h3>
+                <div class="sub-desc">Los datos viajan por el aire mediante ondas electromagnéticas. Mayor flexibilidad
+                    pero menor seguridad sin cifrado.</div>
+                <div class="tag-list">
+                    <span class="tag orange">Infrarrojo</span>
+                    <span class="tag orange">WiFi (802.11)</span>
+                    <span class="tag orange">Satélites</span>
+                    <span class="tag orange">Microondas</span>
+                    <span class="tag orange">Bluetooth</span>
+                </div>
+                <div class="medios-detail">
+                    <strong>Infrarrojo:</strong> muy corto alcance y línea de vista directa. Ej: controles remotos.<br>
+                    <strong>WiFi:</strong> estándar IEEE 802.11. WiFi 6 (802.11ax) alcanza hasta 9.6 Gbps. Frecuencias:
+                    2.4 GHz, 5 GHz (WiFi 6E agrega 6 GHz).<br>
+                    <strong>Satélites:</strong> cobertura global, mayor latencia. Ej: Starlink, Viasat, HughesNet.<br>
+                    <strong>Microondas:</strong> enlaces punto a punto de larga distancia. Requieren línea de vista.
+                    1-300 GHz.<br>
+                    <strong>Bluetooth:</strong> PAN de corto alcance (~10-100 m). Bluetooth 5.3 hasta 2 Mbps. Bajo
+                    consumo.
+                </div>
+                <div class="carousel" id="carousel-noguiados">
+                    <div class="carousel-track">
+                        <div class="carousel-slide">
+                            <img src="imagenes/infrarojo.jfif" alt="Infrarrojo">
+                            <div class="slide-label">Infrarrojo</div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="imagenes/wifi.jfif" alt="WiFi">
+                            <div class="slide-label">WiFi (IEEE 802.11)</div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="imagenes/satelite.jfif" alt="Satélite">
+                            <div class="slide-label">Satélites</div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="imagenes/microondas.jfif" alt="Microondas">
+                            <div class="slide-label">Microondas</div>
+                        </div>
+                    </div>
+                    <button class="carousel-btn prev" onclick="moveCarousel('carousel-noguiados',-1)">‹</button>
+                    <button class="carousel-btn next" onclick="moveCarousel('carousel-noguiados',1)">›</button>
+                    <div class="carousel-dots">
+                        <button class="carousel-dot active" onclick="goToSlide('carousel-noguiados',0)"></button>
+                        <button class="carousel-dot" onclick="goToSlide('carousel-noguiados',1)"></button>
+                        <button class="carousel-dot" onclick="goToSlide('carousel-noguiados',2)"></button>
+                        <button class="carousel-dot" onclick="goToSlide('carousel-noguiados',3)"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- 6. DISPOSITIVOS -->
+    <section id="dispositivos">
+        <div class="section-label">06 — Hardware</div>
+        <h2 class="section-title">Dispositivos de Interconexión</h2>
+        <p class="section-desc">Son los equipos que permiten conectar, enrutar y ampliar una red. Cada uno opera en
+            diferentes capas del modelo OSI.</p>
+
+        <div class="device-grid">
+            <div class="device-card">
+                <div class="device-icon">🔁</div>
+                <div>
+                    <h4>Hub</h4>
+                    <p>Concentrador que retransmite la señal a TODOS los puertos. No filtra tráfico, genera colisiones.
+                        Opera en <strong>Capa 1</strong> (Física). Prácticamente obsoleto, reemplazado por switches.</p>
+                    <img src="imagenes/hub.jfif" alt="Hub">
+                </div>
+            </div>
+            <div class="device-card">
+                <div class="device-icon">🔀</div>
+                <div>
+                    <h4>Switch</h4>
+                    <p>Conmutador inteligente que envía tramas SOLO al puerto destino usando tabla de direcciones MAC.
+                        Opera en <strong>Capa 2</strong> (Enlace de Datos). Dispositivo central de LANs modernas.</p>
+                    <img src="imagenes/switch.jfif" alt="Switch">
+                </div>
+            </div>
+            <div class="device-card">
+                <div class="device-icon">🌐</div>
+                <div>
+                    <h4>Router</h4>
+                    <p>Enruta paquetes entre diferentes redes usando direcciones IP. Determina la mejor ruta al destino.
+                        Opera en <strong>Capa 3</strong> (Red). Ejemplo: el router de tu casa conecta la LAN a Internet.
+                    </p>
+                    <img src="imagenes/router.jfif" alt="Router">
+                </div>
+            </div>
+            <div class="device-card">
+                <div class="device-icon">🌉</div>
+                <div>
+                    <h4>Bridge (Puente)</h4>
+                    <p>Conecta dos segmentos de red del mismo tipo. Filtra tráfico usando direcciones MAC, reduciendo
+                        colisiones. Opera en <strong>Capa 2</strong>. Funcionalidad hoy integrada en switches modernos.
+                    </p>
+                    <img src="imagenes/bridge.jfif" alt="Bridge">
+                </div>
+            </div>
+            <div class="device-card">
+                <div class="device-icon">📶</div>
+                <div>
+                    <h4>Repetidores</h4>
+                    <p>Amplifican y regeneran la señal para extender el alcance de la red. Combaten la atenuación en
+                        cables largos. Opera en <strong>Capa 1</strong>. Ejemplo: repetidor WiFi para extender cobertura
+                        en el hogar.</p>
+                    <img src="imagenes/repe.jfif" alt="Repetidor">
+                </div>
+            </div>
+            <div class="device-card">
+                <div class="device-icon">🔄</div>
+                <div>
+                    <h4>Transceptores</h4>
+                    <p>Transmiten y reciben señales simultáneamente. Convierten entre tipos de señal (eléctrica ↔
+                        óptica). Usados en módulos SFP de switches y routers. Ejemplo: módulo SFP+ para 10 Gbps en
+                        fibra.</p>
+                    <img src="imagenes/transeptores.jfif" alt="Transceptor">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- 7. MODELO OSI -->
+    <section id="osi">
+        <div class="section-label">07 — Referencia</div>
+        <h2 class="section-title">Modelo OSI — 7 Capas</h2>
+        <p class="section-desc">
+            El modelo OSI (<em>Open Systems Interconnection</em>), publicado por la ISO en 1984 (ISO/IEC 7498-1), define
+            cómo los datos viajan entre dispositivos en una red, dividiendo el proceso en 7 capas independientes.
+        </p>
+
+        <div class="osi-stack">
+            <div class="osi-layer l7">
+                <div class="osi-num" style="color:#3b82f6">7</div>
+                <div class="osi-info">
+                    <h4>Aplicación</h4>
+                    <p>Interfaz directa con el usuario final. Gestiona protocolos: HTTP, HTTPS, FTP, SMTP, DNS, POP3.
+                        Ejemplo: cuando abres un navegador y visitas una web.</p>
+                </div>
+                <div class="osi-proto">HTTP / SMTP<br>FTP / DNS</div>
+            </div>
+            <div class="osi-layer l6">
+                <div class="osi-num" style="color:#06b6d4">6</div>
+                <div class="osi-info">
+                    <h4>Presentación</h4>
+                    <p>Traduce, comprime y cifra/descifra los datos. Gestiona formatos: JPEG, MP4, ASCII, UTF-8.
+                        Gestiona cifrado TLS/SSL para conexiones seguras (HTTPS).</p>
+                </div>
+                <div class="osi-proto">TLS / SSL<br>JPEG / ASCII</div>
+            </div>
+            <div class="osi-layer l5">
+                <div class="osi-num" style="color:#22c55e">5</div>
+                <div class="osi-info">
+                    <h4>Sesión</h4>
+                    <p>Establece, mantiene y cierra sesiones de comunicación entre dispositivos. Controla el diálogo y
+                        la sincronización.</p>
+                </div>
+                <div class="osi-proto">NetBIOS<br>PPTP / RPC</div>
+            </div>
+            <div class="osi-layer l4">
+                <div class="osi-num" style="color:#eab308">4</div>
+                <div class="osi-info">
+                    <h4>Transporte</h4>
+                    <p>Garantiza la transferencia confiable de extremo a extremo. Segmenta datos y controla flujo y
+                        errores. TCP: confiable (web, correo). UDP: rápido (streaming, videollamadas, juegos).</p>
+                </div>
+                <div class="osi-proto">TCP / UDP<br>Segmentos</div>
+            </div>
+            <div class="osi-layer l3">
+                <div class="osi-num" style="color:#f97316">3</div>
+                <div class="osi-info">
+                    <h4>Red</h4>
+                    <p>Determina la mejor ruta para enviar paquetes entre redes distintas. Usa direcciones IP (IPv4 e
+                        IPv6). Dispositivo: Router. Protocolos: IP, ICMP, OSPF, BGP.</p>
+                </div>
+                <div class="osi-proto">IP / ICMP<br>Paquetes</div>
+            </div>
+            <div class="osi-layer l2">
+                <div class="osi-num" style="color:#a855f7">2</div>
+                <div class="osi-info">
+                    <h4>Enlace de Datos</h4>
+                    <p>Transmite tramas entre nodos en la misma red local. Usa direcciones MAC (físicas) del hardware.
+                        Detecta y corrige errores. Dispositivos: Switch, Bridge. Protocolo: Ethernet, WiFi.</p>
+                </div>
+                <div class="osi-proto">Ethernet / MAC<br>Tramas</div>
+            </div>
+            <div class="osi-layer l1">
+                <div class="osi-num" style="color:#ec4899">1</div>
+                <div class="osi-info">
+                    <h4>Física</h4>
+                    <p>Transmisión de bits crudos (0 y 1) por el medio físico. Define voltajes, frecuencias, conectores
+                        y cables. Dispositivos: Hub, Repetidor, Cables, Fibra óptica, WiFi.</p>
+                </div>
+                <div class="osi-proto">Bits / Señales<br>Cables / WiFi</div>
+            </div>
+        </div>
+
+        <div class="tip-box">
+            <strong>💡 Mnemotecnia:</strong> Para recordar las capas de arriba a abajo:
+            <em>"All People Seem To Need Data Processing"</em> — Application, Presentation, Session, Transport, Network,
+            Data Link, Physical.
+        </div>
+
+        <div class="osi-img">
+            <img src="imagenes/iso.jfif" alt="Modelo OSI">
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>Redes de Computadoras — Guía Completa &nbsp;|&nbsp; Información basada en <span>ISO, AWS, Cloudflare,
+                IBM</span></p>
+        <p style="margin-top:.4rem; font-size:.6rem;">ISO/IEC 7498-1 &nbsp;·&nbsp; IEEE 802 Standards &nbsp;·&nbsp;
+            TCP/IP RFC 793</p>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.style.opacity = '1';
+                    e.target.style.transform = 'translateY(0)';
+                    observer.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.card, .net-type-card, .topo-card, .device-card, .osi-layer, .modelo-card, .medios-box').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(18px)';
+            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease, border-color 0.3s, box-shadow 0.3s';
+            observer.observe(el);
+        });
+        // Carousel logic
+        const carouselState = {};
+
+        function moveCarousel(id, dir) {
+            const el = document.getElementById(id);
+            const track = el.querySelector('.carousel-track');
+            const total = track.children.length;
+            if (!carouselState[id]) carouselState[id] = 0;
+            carouselState[id] = (carouselState[id] + dir + total) % total;
+            updateCarousel(id);
+        }
+
+        function goToSlide(id, idx) {
+            carouselState[id] = idx;
+            updateCarousel(id);
+        }
+
+        function updateCarousel(id) {
+            const el = document.getElementById(id);
+            const track = el.querySelector('.carousel-track');
+            const dots = el.querySelectorAll('.carousel-dot');
+            const idx = carouselState[id] || 0;
+            track.style.transform = `translateX(-${idx * 100}%)`;
+            dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+        }
+    </script>
+</body>
+
+</html>
